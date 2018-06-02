@@ -2,7 +2,7 @@ import discord
 import asyncio
 import pickle
 import os
-import requests
+from requests import *
 import json
 from datetime import datetime
 client = discord.Client()
