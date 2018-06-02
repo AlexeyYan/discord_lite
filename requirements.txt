@@ -22,7 +22,6 @@ jaraco.itertools==2.2
 Jinja2==2.8
 jsonpatch==1.10
 jsonpointer==1.9
-language-selector==0.1
 MarkupSafe==0.23
 more-itertools==4.1.0
 multidict==4.1.0
