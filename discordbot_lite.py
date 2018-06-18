@@ -16,18 +16,8 @@ async def on_ready():
 @client.event
 async def on_message(message):
   time=str(datetime.now())
-  if message.content.startswith('!goals'):
-   try:
-      f=open('discordbot/goals.txt','r')
-      mp=f.read();
-      f.close
-      await client.send_message(message.channel,mp)
-   except:
-      f=open('discordbot/logs.txt','a')
-      f.write(time+' Ошибка работы с командой !goals')
-      f.close
-
-  elif message.content.startswith('!help'):
+  
+  if message.content.startswith('!help'):
          await  client.send_message(message.channel,'```Спискок команд:\n!help - показать список команд\n!goals - показать список текущих целей\n!rasp - расписание пар на завтра\n!rgoals - добавить цель```')
 
   elif message.content.startswith('!isalexcool'):
@@ -47,21 +37,5 @@ async def on_message(message):
                   await client.send_message(message.channel,time + '\n' + sub + '\n' + aud +'\n'+'----------------\n')
                   i+=1
                  else: await client.send_message(message.channel,'Завтра пар нет, гуляем)')
-  elif message.content.startswith('!rgoals'):
-       goals_list=[]
-       username = message.author.name
-       f=open('discordbot/goals.txt','a')
-       goals_list.append(message.content[8:])
-       print('Пользователь ' + username + ' добавил цель:\n- ' + goals_list[0] + ' -')
-       f.write('- '+goals_list[0]+'\n-----------------------\n')
-       f.close
-       if message.server.name== 'Lamp Night':
-        main=message.server.get_channel('425280734614519830')
-       elif message.server.name== 'Bots':
-        main=message.server.get_channel('434344740096442368')
-       #print(main.get_channel('434344740096442368'))
-       await client.send_message(message.channel, 'OK')
-       await client.send_message(main,'Добавлена цель:\n' + goals_list[0],tts=True)
-
-client.run('NDI1Njk5NDM5NTk3MDYwMDk2.DZVeoA.ErWcwG-mu7w6a9IfaJCPUOSyOwo')
+  client.run('NDI1Njk5NDM5NTk3MDYwMDk2.DZVeoA.ErWcwG-mu7w6a9IfaJCPUOSyOwo')
 
