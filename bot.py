@@ -6,13 +6,10 @@ import os
 import requests
 import json
 import time
-from nsfc import *
 from vk_integ import *
 from imgur_integ import *
 from wolfram_integ import *
-from boto.s3.connection import S3Connection
 from funs import *
-#from google_integ import *
 from accuw_integ import *
 from games import *
 
