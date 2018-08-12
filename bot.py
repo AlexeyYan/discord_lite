@@ -17,12 +17,7 @@ from accuw_integ import *
 from games import *
 
 discord_token=os.environ['DISCORD_TOKEN']
-
-try:
-   commands=''
-   comand_list = ['\n!help - показать список команд','\n!goals - показать список текущих целей','\n!rasp - расписание пар на завтра','\n!rgoals - добавить цель','\n!r 24  for i in range (len(comand_list)):
-   commands = commands+comand_list[i]
-                  
+            
 client = discord.Client()
 @client.event
 async def on_ready():
@@ -31,15 +26,11 @@ async def on_ready():
  print(client.user.name)
  print(client.user.id)
  print("-------------")
- logging.info("Bot started")
                   
 @client.event
 async def on_message(message):
  if message.content.startswith('!ping'):
     await client.send_message(message.channel, 'pong')
-
- elif message.content.startswith('!help'):
-     await  client.send_message(message.channel,'```Спискок команд:' + commands + ' ```')
  
  elif message.content.startswith('!isalexcool'):
             await client.send_message(message.channel,'Of course!')
@@ -91,5 +82,3 @@ async def on_message(message):
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,':sunny:')
 client.run(discord_token)
-except Exception:
-  print('Fatal error!')
