@@ -14,6 +14,7 @@ from accuw_integ import *
 from games import *
 
 discord_token=os.environ['DISCORD_TOKEN']
+print(discord_token)
             
 client = discord.Client()
 @client.event
