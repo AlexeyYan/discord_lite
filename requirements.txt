@@ -2,8 +2,6 @@ discord.py
 aiohttp
 websockets
 chardet
-random
-requests
 vk
 wolframalpha
 readline
