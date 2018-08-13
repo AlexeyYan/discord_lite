@@ -26,7 +26,7 @@ def Curs_BTC():
 def getInstagramContent(url):
      url=urlsplit(url)
      if url.netloc in ['www.instagram.com', 'instagram.com']:
-        link = url.netloc+url.path+'media/?size=l'
+        link = 'http://'+url.netloc+url.path+'media/?size=l'
         r=requests.get(link)
         if not r.ok:
          return 'Ссылка не найдена'
