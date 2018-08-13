@@ -23,7 +23,7 @@ def Curs_BTC():
  curs=r.json()['USD']['buy']
  return 'Курс биткойна: '+ str(curs)+'\u0024'
 
-def getInstagramContent(url)
+def getInstagramContent(url):
      url=urlsplit(url)
      if url.netloc in ['www.instagram.com', 'instagram.com']:
         link = url.netloc+url.path+'/media/?size=l'
