@@ -1,4 +1,5 @@
 import requests
+from urllib.parse import urlsplit
 
 def Curs():
  r=requests.get('http://www.nbrb.by/API/ExRates/Rates?Periodicity=0')
@@ -21,3 +22,15 @@ def Curs_BTC():
  r=requests.get('https://blockchain.info/ru/ticker')
  curs=r.json()['USD']['buy']
  return 'Курс биткойна: '+ str(curs)+'\u0024'
+
+def getInstagramContent(url)
+     url=urlsplit(url)
+     if url.netloc in ['www.instagram.com', 'instagram.com']:
+        link = url.netloc+url.path+'/media/?size=l'
+        r=requests.get(link)
+        if not r.ok:
+         return 'Ссылка не найдена'
+        return link
+     else: 
+         return 'Not Instagram'
+        
