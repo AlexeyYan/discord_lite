@@ -85,7 +85,7 @@ async def on_message(message):
                curs=Curs()
          await client.send_message(message.channel, curs)
  
- elif message.cintent.startswith('!inst'):
+ elif message.content.startswith('!inst'):
          url = message.content[6:]
          answer = getInstagramContent(url)
          await client.send_message(message.channel, answer)
