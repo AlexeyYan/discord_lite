@@ -12,9 +12,9 @@ from wolfram_integ import *
 from funs import *
 from accuw_integ import *
 from games import *
+from schedules import *
 
 discord_token=os.environ['DISCORD_TOKEN']
-print(discord_token)
             
 client = discord.Client()
 @client.event
@@ -30,8 +30,14 @@ async def on_message(message):
  if message.content.startswith('!ping'):
     await client.send_message(message.channel, 'pong')
  
- elif message.content.startswith('!isalexcool'):
-            await client.send_message(message.channel,'Of course!')
+ elif message.content.startswith('!rasp'):
+      if message.content.startswith('!rasp next'):
+         answer=getTomorrowSchedules()
+      else:
+         answer=getTodaySchedules()
+      await client.send_message(message.channel, answer)
+
+
  elif message.content.startswith('!randvk'):
         if message.content.startswith('!randvk bntu'):
          mem=Random_BNTU_Mem()
@@ -54,10 +60,12 @@ async def on_message(message):
          question=str(message.content[6:])
          answer = Question(question)
          await client.send_message(message.channel,answer)
+
  elif message.content.startswith('!dice'):
          cube1, cube2 = Dice()
          name=message.author.name
          await client.send_message(message.channel, name+': выпало '+cube1+' и '+cube2)
+
  elif message.content.startswith('!flip'):
          if random.randint(0,1000)<=453 : ans = 'Орёл'
          else: ans = 'Решка'
@@ -79,4 +87,5 @@ async def on_message(message):
 
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,':sunny:')
+
 client.run(discord_token)
