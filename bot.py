@@ -77,11 +77,11 @@ async def on_message(message):
          await client.send_message(message.channel,result)
 
  elif message.content.startswith('!curs'):
-         if message.content[6:]=='all':
+        if message.content[6:]=='all':
             curs=Curs_All()
         else:
             curs=Curs()
-         await client.send_message(message.channel, curs)
+        await client.send_message(message.channel, curs)
  
  elif message.content.startswith('!inst'):
          url = message.content[6:]
