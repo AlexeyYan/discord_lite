@@ -93,4 +93,7 @@ async def on_message(message):
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,':sunny:')
 
+ elif message.content.startswith('!time'):
+         today = datetime.today()
+         await client.send_message(message.channel,str(today.hour)+':'+str(today.minute))
 client.run(discord_token)
