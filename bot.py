@@ -13,6 +13,7 @@ from funs import *
 from accuw_integ import *
 from games import *
 from schedules import *
+from datetime import datetime
 
 discord_token=os.environ['DISCORD_TOKEN']
             
@@ -96,5 +97,5 @@ async def on_message(message):
  elif message.content.startswith('!time'):
          today = datetime.today()
          await client.send_message(message.channel,str(today.hour)+':'+str(today.minute))
-         
+
 client.run(discord_token)
