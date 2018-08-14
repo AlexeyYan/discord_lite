@@ -79,11 +79,8 @@ async def on_message(message):
  elif message.content.startswith('!curs'):
          if message.content[6:]=='all':
             curs=Curs_All()
-         else:
-            if message.content[6:]=='btc':
-               curs=Curs_BTC()
-            else:
-               curs=Curs()
+        else:
+            curs=Curs()
          await client.send_message(message.channel, curs)
  
  elif message.content.startswith('!inst'):
