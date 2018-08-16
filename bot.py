@@ -22,11 +22,11 @@ GAMES=['Skynet', 'программирование', 'кубики', '*не иг
 
 async def Kostil():
         await client.wait_until_ready()
-        #today = datetime.today()
-        #if today.month not in [6,7,8] and today.weekday() < 7 :
-         #       if (today.hour+3) == 6 and today.minute <= 30:
-          #              requests.get('https://alexyan9.pythonanywhere.com/api/v1.0/rasp', params = {'start':'1'})
-        await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
+        today = datetime.today()
+        if today.month not in [6,7,8] and today.weekday() < 7 :
+                if (today.hour+3) == 6 and today.minute <= 30:
+                        requests.get('https://alexyan9.pythonanywhere.com/api/v1.0/rasp', params = {'start':'1'})
+        #await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
         await asyncio.sleep(60)
 
 @client.event
