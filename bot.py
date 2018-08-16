@@ -103,5 +103,5 @@ async def Kostil(client):
                         requests.get('https://alexyan9.pythonanywhere.com/api/v1.0/rasp', params = {'start':'1'})
         await asyncio.sleep(60)
 
-client.loop.create_task(Kostil())
+client.loop.create_task(Kostil(client))
 client.run(discord_token)
