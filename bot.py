@@ -21,8 +21,8 @@ client = discord.Client()
 GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO']
 
 async def Kostil():
-        await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
         await client.wait_until_ready()
+        await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
         today = datetime.today()
         if today.month not in [6,7,8] and today.weekday() < 7 :
                 if (today.hour+3) == 6 and today.minute <= 30:
