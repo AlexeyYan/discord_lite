@@ -93,12 +93,12 @@ async def on_message(message):
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,':sunny:')
  
- elif messag.content.startswith('!stat'):
+ elif message.content.startswith('!stat'):
         await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
 
-@client.event
+
 async def Kostil(client):
-        await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
+        #await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
         await client.wait_until_ready()
         today = datetime.today()
         if today.month not in [6,7,8] and today.weekday() < 7 :
