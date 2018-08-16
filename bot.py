@@ -92,6 +92,9 @@ async def on_message(message):
 
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,':sunny:')
+ 
+ elif messag.content.startswith('!stat'):
+        await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
 
 @client.event
 async def Kostil(client):
