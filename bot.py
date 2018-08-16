@@ -18,9 +18,10 @@ from datetime import datetime
 discord_token=os.environ['DISCORD_TOKEN']
             
 client = discord.Client()
+GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO']
 @client.event
 async def on_ready():
- await client.change_presence(game=discord.Game(name="захват мира"))
+ await client.change_presence(game=discord.Game(name=random.choice(GAMES)))
  print('Logged on')
  print(client.user.name)
  print(client.user.id)
@@ -92,6 +93,7 @@ async def on_message(message):
         await client.send_message(message.channel,':sunny:')
 
 async def Kostil():
+        await client.change_presence(game=discord.Game(name=random.choice(GAMES)))
         await client.wait_until_ready()
         today = datetime.today()
         if today.month not in [6,7,8] and today.weekday() < 7 :
