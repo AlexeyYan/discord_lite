@@ -21,7 +21,7 @@ client = discord.Client()
 GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO']
 
 @client.event
-async def on_ready(client):
+async def on_ready():
  await client.change_presence(game=discord.Game(name=random.choice(GAMES), satus = discord.Status.idle))
  print('Logged on')
  print(client.user.name)
@@ -94,7 +94,7 @@ async def on_message(message):
         await client.send_message(message.channel,':sunny:')
 
 @client.event
-async def Kostil():
+async def Kostil(client):
         await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
         await client.wait_until_ready()
         today = datetime.today()
