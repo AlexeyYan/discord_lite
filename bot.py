@@ -31,7 +31,7 @@ async def Kostil():
 
 @client.event
 async def on_ready():
- await client.change_presence(game=discord.Game(name=random.choice(GAMES), satus = discord.Status.idle))
+ await client.change_presence(game=discord.Game(name=random.choice(GAMES), status = discord.Status.idle))
  print('Logged on')
  print(client.user.name)
  print(client.user.id)
