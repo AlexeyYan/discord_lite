@@ -100,7 +100,7 @@ async def on_message(message):
          await client.send_message(message.channel, answer)
 
  elif message.content.startswith('!test'):
-        await client.send_message(message.channel,':sunny:')
+        await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.blue()), 'Test')
  
  elif message.content.startswith('!stat'):
         await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
