@@ -2,7 +2,7 @@ discord.py
 aiohttp
 websockets
 chardet
-qrcode
+qrcode[pil]
 vk
 wolframalpha
 readline
