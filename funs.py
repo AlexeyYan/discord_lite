@@ -22,7 +22,7 @@ def Curs_All():
 def createQRCode(value):
     qr=qrcode.QRCode(version=1, box_size=12, border=2)
     qr.add_data(value)
-    qr.make(fir=True)
+    qr.make(fit=True)
     x=qr.make_image()
     image_file=open('qr.jpg', 'wb')
     x.save(image_file, 'JPEG')
