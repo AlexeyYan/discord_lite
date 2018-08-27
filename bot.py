@@ -18,7 +18,7 @@ from datetime import datetime
 discord_token=os.environ['DISCORD_TOKEN']
             
 client = discord.Client()
-GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO', 'рок группе', 'песочнице', 'в пьесе']
+GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO', 'рок группе', 'песочнице', 'пьесе']
 
 async def Kostil():
         await client.wait_until_ready()
