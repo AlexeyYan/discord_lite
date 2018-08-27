@@ -102,7 +102,7 @@ async def on_message(message):
  elif message.content.startswith('!qr'):
          value=message.content[4:]
          createQRCode(value)
-         await client.send_message(message.author, 'Your QR-code:', attachments='./qr.jpg')
+         await client.send_file(message.author,'./qr.jpg', 'qr.jpg', 'Your QR-code: ', False)
 
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.blue(), description='Test color'))
