@@ -105,7 +105,14 @@ async def on_message(message):
  elif message.content.startswith('!stat'):
         await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
 
+@client.event
+async def on_message_delete(message):
+        print('User{} delete message: {}'.format(message.author.name, message.content))
 
+@client.event
+async def on_member_join(member):
+        await client.send_message(member, 'Приветсвую {} на нашем ламповом сервере!'.format(member.name))
+        await client.send_message(447158757588205568, '{} вступил в нашу команду, поделитесь печеньками)')
 
 client.loop.create_task(Kostil())
 client.run(discord_token)
