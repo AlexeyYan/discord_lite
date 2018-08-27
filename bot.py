@@ -98,6 +98,11 @@ async def on_message(message):
          url = message.content[6:]
          answer = getInstagramContent(url)
          await client.send_message(message.channel, answer)
+ 
+ elif message.content.startswith('!qr'):
+         value=message.content[4:]
+         QRCodeCreate(value)
+         await clien.sed_message(message.author, 'Your QR-code:', attachment='./qr.jpg')
 
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.blue(), description='Test color'))

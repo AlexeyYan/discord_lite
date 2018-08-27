@@ -1,4 +1,5 @@
 import requests
+import qrcode
 from urllib.parse import urlsplit
 
 def Curs():
@@ -18,10 +19,14 @@ def Curs_All():
   i+=1
  return curs
 
-def Curs_BTC():
- r=requests.get('https://blockchain.info/ru/ticker')
- curs=r.json()['USD']['buy']
- return 'Курс биткойна: '+ str(curs)+'\u0024'
+def createQRCode(value):
+    qr=qrcode.QRCode(version=1, box_size=12, border=2)
+    qr.add_data(value)
+    qr.make(fir=True)
+    x=qr.make_image()
+    image_file=open('qr.jpg', 'wb')
+    x.save(image_file, 'JPEG')
+    img_file.close()
 
 def getInstagramContent(url):
      url=urlsplit(url)
