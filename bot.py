@@ -101,7 +101,7 @@ async def on_message(message):
  
  elif message.content.startswith('!qr'):
          value=message.content[4:]
-         QRCodeCreate(value)
+         createQRCode(value)
          await clien.sed_message(message.author, 'Your QR-code:', attachment='./qr.jpg')
 
  elif message.content.startswith('!test'):
