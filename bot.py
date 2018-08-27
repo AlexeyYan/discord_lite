@@ -18,7 +18,7 @@ from datetime import datetime
 discord_token=os.environ['DISCORD_TOKEN']
             
 client = discord.Client()
-GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO']
+GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO', 'рок группе', 'песочнице', 'пьесе']
 
 async def Kostil():
         await client.wait_until_ready()
@@ -31,7 +31,7 @@ async def Kostil():
 
 @client.event
 async def on_ready():
- await client.change_presence(game=discord.Game(name=random.choice(GAMES), satus = discord.Status.idle))
+ await client.change_presence(game=discord.Game(name=random.choice(GAMES), status = discord.Status.idle))
  print('Logged on')
  print(client.user.name)
  print(client.user.id)
