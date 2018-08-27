@@ -26,7 +26,7 @@ def createQRCode(value):
     x=qr.make_image()
     image_file=open('qr.jpg', 'wb')
     x.save(image_file, 'JPEG')
-    img_file.close()
+    image_file.close()
 
 def getInstagramContent(url):
      url=urlsplit(url)
