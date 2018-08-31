@@ -107,7 +107,7 @@ async def on_message(message):
          qr=open('qr.jpg', 'rb')
          await client.send_file(message.author,qr)
 
-elif message.content.startswith('!help'):
+ elif message.content.startswith('!help'):
         if message.content[6:] !='':
                 if message.content[6:] in helps.Commands_richList.keys()
                         answer=discord.Embed(color=discord.Color.blue(), title='***'+message.content[6:]+' - help***', description=helps.Commands_richList[message.content[6:]])
