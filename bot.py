@@ -90,8 +90,10 @@ async def on_message(message):
  elif message.content.startswith('!curs'):
         if message.content[6:]=='all':
             curs=Curs_All()
+            await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.green(), title='***Основные курсы валют на сегодня:***' description=curs)
         else:
             curs=Curs()
+            await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.green(), title='***Курсы валют на сегодня:***' description=curs)
         await client.send_message(message.channel, curs)
  
  elif message.content.startswith('!inst'):
