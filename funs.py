@@ -3,7 +3,7 @@ import qrcode
 from urllib.parse import urlsplit
 
 def Curs():
- r=requests.get('http://www.nbrb.by/API/ExRates/Currencies')
+ r=requests.get('http://www.nbrb.by/API/ExRates/Rates?Periodicity=0')
  cursUSD=r.json()[4]['Cur_OfficialRate']
  cursEUR=r.json()[5]['Cur_OfficialRate']
  cursRUB=r.json()[16]['Cur_OfficialRate']
