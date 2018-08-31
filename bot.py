@@ -109,7 +109,7 @@ async def on_message(message):
 
  elif message.content.startswith('!help'):
         if message.content[6:] !='':
-                if message.content[6:] in helps.Commands_richList.keys()
+                if message.content[6:] in helps.Commands_richList.keys():
                         answer=discord.Embed(color=discord.Color.blue(), title='***'+message.content[6:]+' - help***', description=helps.Commands_richList[message.content[6:]])
                 else:
                         answer = discord.Embed(color=discord.Color.red(), title='__***Error!***__', description='Команда не найдена')
