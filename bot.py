@@ -114,7 +114,7 @@ async def on_message(message):
                 else:
                         answer = discord.Embed(color=discord.Color.red(), title='__***Error!***__', description='Команда не найдена')
         else:
-                answer = discord.Embed(color = discord.Color.blue(), title='***Commands List***', description = helps.Comands_List)
+                answer = discord.Embed(color = discord.Color.blue(), title='***Commands List***', description = helps.Commands_List)
         await client. send_message(message.author, embed=answer)
 
 
