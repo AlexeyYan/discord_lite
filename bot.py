@@ -81,7 +81,7 @@ async def on_message(message):
  elif message.content.startswith('!flip'):
          if random.randint(0,1000)<=453 : ans = 'Орёл'
          else: ans = 'Решка'
-         await client.send_message(message.channel,'Выпало: '+ans)g
+         await client.send_message(message.channel,'Выпало: '+ans)
 
  elif message.content.startswith('!weather'):
          result=Daily_Forecast()
