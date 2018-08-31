@@ -11,7 +11,7 @@ def Curs():
  return 'Курс доллара: '+ str(cursUSD)+'\nКурс евро: ' + str(cursEUR) +'\nКурс рубля(100): '+str(cursRUB)+'\nКурс гривны(100): '+str(cursUAH)
 
 def Curs_All():
- r=requests.get('http://www.nbrb.by/API/ExRates/Currencies')
+ r=requests.get('http://www.nbrb.by/API/ExRates/Rates?Periodicity=0')
  curs="***Курсы валют на сегодня:***\n"
  i=0
  while(i<26):
