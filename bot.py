@@ -6,6 +6,7 @@ import os
 import requests
 import json
 import time
+import helps
 from vk_integ import *
 from imgur_integ import *
 from wolfram_integ import *
@@ -105,6 +106,17 @@ async def on_message(message):
          createQRCode(value)
          qr=open('qr.jpg', 'rb')
          await client.send_file(message.author,qr)
+
+elif message.content.startswith('!help'):
+        if message.content[6:] !='':
+                if message.content[6:] in helps.Commands_richList.keys()
+                        answer=discord.Embed(color=discord.Color.blue(), title='***'+message.content[6:]+' - help***', description=helps.Commands_richList[message.content[6:]])
+                else:
+                        answer = discord.Embed(color=discord.Color.red(), title='__***Error!***__', description='Команда не найдена')
+        else:
+                answer = discord.Embed(color = discord.Color.blue(), title='***Commands List***', description = helps.Comands_List)
+        await client. send_message(message.author, embed=answer)
+
 
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.blue(), description='Test color'))
