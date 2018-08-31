@@ -6,7 +6,7 @@ def Curs():
  r=requests.get('http://www.nbrb.by/API/ExRates/Rates?Periodicity=0')# NBRB Api
  r=r.json()
  USD=r[4]['Cur_OfficialRate']
-  EUR=r[5]['Cur_OfficialRate']
+ EUR=r[5]['Cur_OfficialRate']
  RUB=r[16]['Cur_OfficialRate']
  UAH=r[2]['Cur_OfficialRate']
  return 'Курс доллара: {}\nКурс евро: {}\nКурс рубля(100): {}\nКурс гривны(100): {}'.format(USD, EUR, RUB, UAH)
