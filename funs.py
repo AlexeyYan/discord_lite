@@ -3,7 +3,7 @@ import qrcode
 from urllib.parse import urlsplit
 
 def Curs():
- r=requests.get('http://www.nbrb.by/API/ExRates/Rates?Periodicity=0')
+ r=requests.get('http://www.nbrb.by/API/ExRates/Currencies')
  cursUSD=r.json()[4]['Cur_OfficialRate']
  cursEUR=r.json()[5]['Cur_OfficialRate']
  cursRUB=r.json()[16]['Cur_OfficialRate']
@@ -11,7 +11,7 @@ def Curs():
  return 'Курс доллара: '+ str(cursUSD)+'\nКурс евро: ' + str(cursEUR) +'\nКурс рубля(100): '+str(cursRUB)+'\nКурс гривны(100): '+str(cursUAH)
 
 def Curs_All():
- r=requests.get('http://www.nbrb.by/API/ExRates/Rates?Periodicity=0')
+ r=requests.get('http://www.nbrb.by/API/ExRates/Currencies')
  curs="***Курсы валют на сегодня:***\n"
  i=0
  while(i<26):
