@@ -6,7 +6,7 @@ def getTodaySchedules():
       week=r.json()['currentWeekNumber']
       if r.json()['todaySchedules']!=[]:
           answer+='Рассписание на сегодня:\n'
-          for lesson in r.json()[todaySchedules]:
+          for lesson in r.json()['todaySchedules']:
              if week in lesson['weekNumber'] or r.json()['todaySchedules']!=None:
                  times=('Время: ' + r.json()['todaySchedules'][i]['lessonTime'])
                  sub=('Предмет: ' + lesson['subject']+' ('+lesson['lessonType']+')')
