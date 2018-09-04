@@ -8,7 +8,7 @@ def getTodaySchedules():
           answer+='Рассписание на сегодня:\n'
           for lesson in r.json()['todaySchedules']:
              if week in lesson['weekNumber'] or r.json()['todaySchedules']!=None:
-                 times=('Время: ' + r.json()['todaySchedules'][i]['lessonTime'])
+                 times=('Время: ' + lesson['lessonTime'])
                  sub=('Предмет: ' + lesson['subject']+' ('+lesson['lessonType']+')')
                  employeer=('Препод: ' + lesson['employee'][0]['fio'])
                  aud=('Аудитория: ' + lesson['auditory'][0])
@@ -24,7 +24,7 @@ def getTomorrowSchedules():
          answer+='Рассписание на завтра:\n'
          for lesson in r.json()['tomorrowSchedules']:
                if week in lesson['weekNumber'] or r.json()['tomorrowSchedules']!=None:
-                   times=('Время: ' + r.json()['todaySchedules'][i]['lessonTime'])
+                   times=('Время: ' + lesson['lessonTime'])
                    sub=('Предмет: ' + lesson['subject']+' ('+lesson['lessonType']+')')
                    employeer=('Препод: ' + lesson['employee'][0]['fio'])
                    aud=('Аудитория: ' + lesson['auditory'][0])
