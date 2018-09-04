@@ -14,10 +14,8 @@ def Curs():
 def Curs_All():
  r=requests.get('http://www.nbrb.by/API/ExRates/Rates?Periodicity=0')# NBRB Api
  curs="***Курсы валют на сегодня:***\n"
- i=0
- while(i<26):
-  curs+=r.json()[i]['Cur_Name']+'('+str(r.json()[i]['Cur_Scale'])+'): __*'+str(r.json()[i]['Cur_OfficialRate'])+'*__\n'
-  i+=1
+ for curs in r.json():
+  curs+=curs['Cur_Name']+'('+str(curs['Cur_Scale'])+'): __*'+str(curs['Cur_OfficialRate'])+'*__\n'
  return curs
 
 def createQRCode(value):
