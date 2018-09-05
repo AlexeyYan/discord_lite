@@ -14,7 +14,10 @@ def getTodaySchedules():
                      employeer=('Препод: ' + lesson['employee'][0]['fio'])
                  else:
                      employeer=''
-                 aud=('Аудитория: ' + lesson['auditory'][0])
+                if lesson['auditory']!=[]:
+                     aud=('Аудитория: ' + lesson['auditory'][0])
+                 else:
+                     aud=''
                  answer+=times+'\n'+sub+'\n'+aud+'\n'+employeer+'\n-----------------\n'
           return answer
       else: return 'Сегодня пар нет, гуляем)'
