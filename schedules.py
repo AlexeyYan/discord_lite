@@ -14,7 +14,7 @@ def getTodaySchedules():
                      employeer=('Препод: ' + lesson['employee'][0]['fio'])
                  else:
                      employeer=''
-                if lesson['auditory']!=[]:
+                 if lesson['auditory']!=[]:
                      aud=('Аудитория: ' + lesson['auditory'][0])
                  else:
                      aud=''
