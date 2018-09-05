@@ -10,7 +10,7 @@ def getTodaySchedules():
              if week in lesson['weekNumber'] or r.json()['todaySchedules']!=None:
                  times=('Время: ' + lesson['lessonTime'])
                  sub=('Предмет: ' + lesson['subject']+' ('+lesson['lessonType']+')')
-                 if lesson['employee'][0]['fio']:
+                 if 'employee' in lesson.keys():
                      employeer=('Препод: ' + lesson['employee'][0]['fio'])
                  else:
                      employeer=''
@@ -29,7 +29,7 @@ def getTomorrowSchedules():
                if week in lesson['weekNumber'] or r.json()['tomorrowSchedules']!=None:
                    times=('Время: ' + lesson['lessonTime'])
                    sub=('Предмет: ' + lesson['subject']+' ('+lesson['lessonType']+')')
-                   if lesson['employee'][0]['fio']:
+                   if 'employee' in lesson.keys():
                      employeer=('Препод: ' + lesson['employee'][0]['fio'])
                    else:
                      employeer=''
