@@ -7,7 +7,7 @@ accuw_key = os.environ['ACCUW_KEY']
 def Daily_Forecast():
     r=requests.get('http://dataservice.accuweather.com/forecasts/v1/daily/5day/28580', params={'apikey':accuw_key, 'language':'ru'})
     date=r.json()['Headline']['EffectiveDate']
-    day=r.json()['DailyForecasts'][1]
+    day=r.json()['DailyForecasts'][0]
     temperature=str(int((day['Temperature']['Minimum']['Value']-32)/1.8))+' - '+str(int((day['Temperature']['Maximum']['Value']-32)/1.8))
     dayw=day['Day']['IconPhrase']
     icon=day['Day']['Icon']
