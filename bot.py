@@ -127,7 +127,7 @@ async def on_message_delete(message):
 @client.event
 async def on_member_join(member):
         await client.send_message(member, 'Приветсвую {} на нашем сервере {}!'.format(member.name, server.name))
-        await client.send_message(447158757588205568, '{} вступил в нашу команду, поделитесь печеньками)')
+        await client.send_message(447158757588205568, '{} вступил в нашу команду, поделитесь печеньками)'.fomat(member.name))
 
 client.loop.create_task(Kostil())
 client.run(discord_token)
