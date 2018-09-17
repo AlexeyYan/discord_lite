@@ -96,12 +96,14 @@ async def on_message(message):
          url = message.content[6:]
          answer = getInstagramContent(url)
          await client.send_message(message.channel, answer)
+         await client.delete_message(message)
  
  elif message.content.startswith('!qr'):
          value=message.content[4:]
          createQRCode(value)
          qr=open('qr.jpg', 'rb')
          await client.send_file(message.author,qr)
+         await client.delete_message(message)
 
  elif message.content.startswith('!help'):
         if message.content[6:] !='':
@@ -112,6 +114,7 @@ async def on_message(message):
         else:
                 answer = discord.Embed(color = discord.Color.blue(), title='***Commands List***', description = helps.Commands_List)
         await client. send_message(message.author, embed=answer)
+        await client.delete_message(message)
 
 
  elif message.content.startswith('!test'):
