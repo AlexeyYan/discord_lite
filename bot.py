@@ -20,11 +20,12 @@ discord_token=os.environ['DISCORD_TOKEN']
             
 client = discord.Client()
 GAMES=['Skynet', 'программирование', 'кубики', '*не играет*', 'CS:GO', 'рок группе', 'песочнице', 'пьесе']
-
+i=0
 async def Kostil():
         await client.wait_until_ready()
-        await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
-        await asyncio.sleep(60)
+        await client.send_message(458335056532996097, i)
+        i+=1
+        await asyncio.sleep(10)
 
 @client.event
 async def on_ready():
