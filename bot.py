@@ -117,6 +117,10 @@ async def on_message(message):
         await client. send_message(message.author, embed=answer)
         await client.delete_message(message)
 
+ elif message.content.startswith('!pz'):
+         story=Random_Pozor_Story()
+         await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.gray(), title='***Позор***', description=story))
+
 
  elif message.content.startswith('!test'):
         await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.blue(), description='Test color'))
