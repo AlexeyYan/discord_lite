@@ -8,7 +8,6 @@ import json
 import time
 import helps
 from vk_integ import *
-from vk_integ import Random_Pozor_Story
 from imgur_integ import *
 from wolfram_integ import *
 from funs import *
@@ -119,7 +118,7 @@ async def on_message(message):
         await client.delete_message(message)
 
  elif message.content.startswith('!pz'):
-         story=Random_Pozor_Story()
+         story=Pozor_Story()
          await client.send_message(message.channel,embed=discord.Embed(color=discord.Color.gray(), title='***Позор***', description=story))
 
 

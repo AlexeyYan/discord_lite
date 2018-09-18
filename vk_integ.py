@@ -39,7 +39,7 @@ def Random_IT_Mem():
  url=r['attachments'][0]['photo']['photo_604']
  return url
 
- def Random_Pozor_Story():
+ def Pozor_Story():
     session=vk.Session(vk_token)
     api = vk.API(session)
     offset=random.randint(0, 1000)
