@@ -2,7 +2,7 @@ import requests
 
 def getTodaySchedules():
       answer=''
-      r=requests.get('https://students.bsuir.by/api/v1/studentGroup/schedule?studentGroup=740401')
+      r=requests.get('https://journal.bsuir.by/api/v1/studentGroup/schedule?studentGroup=740401')
       week=r.json()['currentWeekNumber']
       if r.json()['todaySchedules']!=[]:
           answer+='Рассписание на сегодня:\n'
@@ -24,7 +24,7 @@ def getTodaySchedules():
 
 def getTomorrowSchedules():
       answer=''
-      r=requests.get('https://students.bsuir.by/api/v1/studentGroup/schedule?studentGroup=740401')
+      r=requests.get('https://journal.bsuir.by/api/v1/studentGroup/schedule?studentGroup=740401')
       week=r.json()['currentWeekNumber']
       if r.json()['tomorrowSchedules']!=[]:
          answer+='Рассписание на завтра:\n'
