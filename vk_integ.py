@@ -17,27 +17,27 @@ class Vk_Integration(object):
      url = r['attachments'][0]['photo']['photo_807']
      return url
 
-   def random_joke():
+   def random_joke(self):
       offset = random.randint(0, 1000)
       r = self.api.wall.get(owner_id=-22222333, count=100, offset=offset, v=self.v)
       r = random.choice(r['items'])
       url = r['attachments'][0]['photo']['photo_807']
       return url
 
-   def random_bntu_mem():
+   def random_bntu_mem(self):
       r = self.api.photos.get(owner_id=-59496516, album_id=247176525, v=self.v)
       r = random.choice(r['items'])
       url = r['photo_604']
       return url
 
-   def random_it_mem():
+   def random_it_mem(self):
      offset = random.randint(0, 100)
      r = self.api.wall.get(owner_id=-80799846, count=100, offset=offset, v=self.v)
      r = random.choice(r['items'])
      url = r['attachments'][0]['photo']['photo_604']
      return url
 
-   def pozor_story():
+   def pozor_story(self):
        offset = random.randint(0, 1000)
        r = self.api.wall.get(owner_id=-71729358, count=100, offset=offset, v=self.v)
        r = random.choice(r['items'])
