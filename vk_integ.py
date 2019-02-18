@@ -6,7 +6,7 @@ import os
 class Vk_Integration(object):
    def __init__(self):
        self.vk_token = os.environ['VK_TOKEN']
-       self.session = vk.Session(vk_token)
+       self.session = vk.Session(self.vk_token)
        self.api = vk.API(session)
        self.v='5.7'
 
