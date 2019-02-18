@@ -120,7 +120,7 @@ async def on_message(message):
 
     elif message.content.startswith('!pz'):
         story = vk.pozor_story()
-        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.gray(), title='___***Позор***___', description=story))
+        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), title='___***Позор***___', description=story))
 
     elif message.content.startswith('!test'):
         await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description='Test color'))
