@@ -45,7 +45,7 @@ async def on_message(message):
         await client.send_message(message.channel, answer)
 
     elif message.content.startswith('!randvk'):
-                mem = vk.random_pic()
+        mem = vk.random_pic()
         await client.send_message(message.channel, mem)
 
     elif message.content.startswith('!randpic'):
