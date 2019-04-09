@@ -45,13 +45,7 @@ async def on_message(message):
         await client.send_message(message.channel, answer)
 
     elif message.content.startswith('!randvk'):
-        if message.content.startswith('!randvk bntu'):
-            mem = vk.random_bntu_mem()
-        else:
-            if message.content.startswith('!randvk it'):
-                mem = vk.random_it_mem()
-            else:
-                mem = vk.random_mem()
+                mem = vk.random_pic()
         await client.send_message(message.channel, mem)
 
     elif message.content.startswith('!randpic'):
