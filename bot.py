@@ -73,6 +73,17 @@ async def on_message(message):
             ans = 'Решка'
         await client.send_message(message.channel, 'Выпало: '+ans)
 
+    elif message.content.startswith('!roll'):
+        name = message.author.name
+        if dip = str(message.content[6:]).split(' '):
+            try:
+                ans=random.randint(int(dip[0]), int(dip[1]))
+            except:
+                await client.send_message(message.channel, 'Ошибка!')
+            else:
+                await client.send_message(message.channel,  name+', ваше число:'+ str(ans))
+        
+
     elif message.content.startswith('!weather'):
         result = Daily_Forecast()
         await client.send_message(message.channel, result)
