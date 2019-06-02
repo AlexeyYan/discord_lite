@@ -75,7 +75,8 @@ async def on_message(message):
 
     elif message.content.startswith('!roll'):
         name = message.author.name
-        if dip = str(message.content[6:]).split(' '):
+        dip = str(message.content[6:]).split(' ')
+        if dip:
             try:
                 ans=random.randint(int(dip[0]), int(dip[1]))
             except:
