@@ -83,7 +83,7 @@ async def on_message(message):
             if int(dip[2])!=0:
                 amount=int(dip[2])
             try:
-                while i<amout:
+                while i<amount:
                     ans.append(random.randint(int(dip[0]), int(dip[1])))
                     i+=1
             except:
