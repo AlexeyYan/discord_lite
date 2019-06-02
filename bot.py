@@ -76,6 +76,7 @@ async def on_message(message):
     elif message.content.startswith('!roll'):
         amount=1
         ans=[]
+        i=0
         name = message.author.name
         dip = str(message.content[6:]).split(' ')
         if dip:
