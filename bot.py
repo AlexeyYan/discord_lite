@@ -74,15 +74,21 @@ async def on_message(message):
         await client.send_message(message.channel, 'Выпало: '+ans)
 
     elif message.content.startswith('!roll'):
+        amount=1
+        ans=[]
         name = message.author.name
         dip = str(message.content[6:]).split(' ')
         if dip:
+            if int(dip[2])!=0:
+                amount=int(dip[2])
             try:
-                ans=random.randint(int(dip[0]), int(dip[1]))
+                while i<amout:
+                    ans.append(random.randint(int(dip[0]), int(dip[1])))
             except:
                 await client.send_message(message.channel, 'Ошибка!')
             else:
                 await client.send_message(message.channel,  name+', ваше число:'+ str(ans))
+                
         
 
     elif message.content.startswith('!weather'):
