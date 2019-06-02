@@ -84,6 +84,7 @@ async def on_message(message):
             try:
                 while i<amout:
                     ans.append(random.randint(int(dip[0]), int(dip[1])))
+                    i+=1
             except:
                 await client.send_message(message.channel, 'Ошибка!')
             else:
