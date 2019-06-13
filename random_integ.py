@@ -11,7 +11,7 @@ class Rand():
             r=requests.get(self.main_url, params={})
         except:
             self.net_random=False
-        if r.status!=200:
+        if not r.ok:
             self.net_random=False
             
     def parse(self, line):
