@@ -13,12 +13,13 @@ from imgur_integ import *
 from wolfram_integ import *
 from funs import *
 from accuw_integ import *
-from games import *
-from schedules import *
+from random_integ import Rand
+from bsuir_integ import getSchedules
 
 discord_token = os.environ['DISCORD_TOKEN']
 client = discord.Client()
 vk = Vk_Integration()
+Rand=Rand()
 GAMES = ['Skynet', 'программирование', 'кубики',
          '*не играет*', 'CS:GO', 'рок группе', 'песочнице', 'пьесе']
 
@@ -39,9 +40,9 @@ async def on_message(message):
 
     elif message.content.startswith('!rasp'):
         if message.content.startswith('!rasp next'):
-            answer = getTomorrowSchedules()
+            answer = getSchedules(1)
         else:
-            answer = getTodaySchedules()
+            answer = getSchedules(0)
         await client.send_message(message.channel, answer)
 
     elif message.content.startswith('!randvk'):
@@ -62,36 +63,23 @@ async def on_message(message):
         await client.send_message(message.channel, answer)
 
     elif message.content.startswith('!dice'):
-        cube1, cube2 = Dice()
+        cube1, cube2 = Rand.Dice()
         name = message.author.name
         await client.send_message(message.channel, name+': выпало '+cube1+' и '+cube2)
 
     elif message.content.startswith('!flip'):
-        if random.randint(0, 1000) <= 453:
-            ans = 'Орёл'
-        else:
-            ans = 'Решка'
+        ans=Rand.Flip()
         await client.send_message(message.channel, 'Выпало: '+ans)
 
     elif message.content.startswith('!roll'):
         amount=1
-        ans=[]
-        i=0
         name = message.author.name
         dip = str(message.content[6:]).split(' ')
         if dip:
             if int(dip[2])!=0:
                 amount=int(dip[2])
-            try:
-                while i<amount:
-                    ans.append(random.randint(int(dip[0]), int(dip[1])))
-                    i+=1
-            except:
-                await client.send_message(message.channel, 'Ошибка!')
-            else:
-                await client.send_message(message.channel,  name+', ваше число:'+ str(ans))
-                
-        
+        ans = Rand.Roll()
+        await client.send_message(message.channel,  name+', ваши числа:'+ str(ans))
 
     elif message.content.startswith('!weather'):
         result = Daily_Forecast()
@@ -137,7 +125,7 @@ async def on_message(message):
         await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), title='___***Позор***___', description=story))
 
     elif message.content.startswith('!test'):
-        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description='Test color'))
+        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description='''```diff\n- Here's some red colored text!\n```'''))
 
     elif message.content.startswith('!stat'):
         await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
