@@ -14,7 +14,7 @@ from wolfram_integ import *
 from funs import *
 from accuw_integ import *
 from random_integ import Rand
-from bsuir_integ import getSchedules
+from bsuir_integ import Get_Schedules
 
 discord_token = os.environ['DISCORD_TOKEN']
 client = discord.Client()
@@ -40,9 +40,9 @@ async def on_message(message):
 
     elif message.content.startswith('!rasp'):
         if message.content.startswith('!rasp next'):
-            answer = getSchedules(1)
+            answer = Get_Schedules(1)
         else:
-            answer = getSchedules(0)
+            answer = Get_Schedules(0)
         await client.send_message(message.channel, answer)
 
     elif message.content.startswith('!randvk'):
@@ -52,10 +52,6 @@ async def on_message(message):
     elif message.content.startswith('!randpic'):
         pic = Random_Pic()
         await client.send_message(message.channel, pic)
-
-    elif message.content.startswith('!joke'):
-        joke = vk.random_joke()
-        await client.send_message(message.channel, joke)
 
     elif message.content.startswith('!wolf'):
         question = str(message.content[6:])
@@ -78,7 +74,7 @@ async def on_message(message):
         if dip:
             if int(dip[2])!=0:
                 amount=int(dip[2])
-        ans = Rand.Roll()
+        ans = Rand.Roll(int(dip[0]), int(dip[1]), amount)
         await client.send_message(message.channel,  name+', ваши числа:'+ str(ans))
 
     elif message.content.startswith('!weather'):
@@ -139,7 +135,7 @@ async def on_message_delete(message):
 
 @client.event
 async def on_member_join(member):
-    await client.send_message(member, 'Приветсвую {} на нашем сервере {}!'.format(member.name, server.name))
-    await client.send_message(os.environ['MAIN'], '{} вступил в нашу команду, поделитесь печеньками)'.fomat(member.name))
+    await client.send_message(member, 'Приветсвую {} на нашем сервере {}!'.format(member.name, member.guild.name))
+    await client.send_message(os.environ['MAIN'], '{} вступил в нашу команду, поделитесь печеньками)'.format(member.name))
 
 client.run(discord_token)
