@@ -20,7 +20,7 @@ class Rand():
     def get_random(self, min, max, amount):
         ans=[]
         if self.net_random:
-            r=requests.get(self.main_url, params={'num':amount, 'min':min, 'max':max, 'col':1, 'base':10, 'format': 'html', 'rnd': 'new'})
+            r=requests.get(self.main_url, params={'num':amount, 'min':min, 'max':max, 'col':1, 'base':10, 'format': 'plain', 'rnd': 'new'})
             ans=self.parse(r.content)
         else:
             while amount>=0:
