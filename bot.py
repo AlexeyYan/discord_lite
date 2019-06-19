@@ -74,7 +74,7 @@ async def on_message(message):
 
     elif message.content.startswith('!weather'):
         forecast=yandex.GetWeather()
-        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title='***Погода***', description=ans))
+        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title='***Погода***', description=forecast))
 
     elif message.content.startswith('!curs'):
         if message.content[6:] == 'all':
