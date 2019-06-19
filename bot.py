@@ -10,15 +10,15 @@ from datetime import datetime
 import helps
 from vk_integ import Vk_Integration
 from imgur_integ import *
-from wolfram_integ import *
 from funs import *
-from accuw_integ import *
+from yandex_integ import Yandex
 from random_integ import Rand
 from bsuir_integ import Get_Schedules
 
 discord_token = os.environ['DISCORD_TOKEN']
 client = discord.Client()
 vk = Vk_Integration()
+yandex=Yandex()
 Rand=Rand()
 GAMES = ['Skynet', 'программирование', 'кубики',
          '*не играет*', 'CS:GO', 'рок группе', 'песочнице', 'пьесе']
@@ -53,11 +53,6 @@ async def on_message(message):
         pic = Random_Pic()
         await client.send_message(message.channel, pic)
 
-    elif message.content.startswith('!wolf'):
-        question = str(message.content[6:])
-        answer = Question(question)
-        await client.send_message(message.channel, answer)
-
     elif message.content.startswith('!dice'):
         cube1, cube2 = Rand.Dice()
         name = message.author.name
@@ -75,11 +70,11 @@ async def on_message(message):
             if int(dip[2])!=0:
                 amount=int(dip[2])
         ans = Rand.Roll(int(dip[0]), int(dip[1]), amount)
-        await client.send_message(message.channel,  name+', ваши числа:'+ str(ans))
+        await client.send_message(message.channel,  name+f', ваши числа: {ans}')
 
     elif message.content.startswith('!weather'):
-        result = Daily_Forecast()
-        await client.send_message(message.channel, result)
+        forecast=yandex.GetWeather()
+        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title='***Погода***', description=ans))
 
     elif message.content.startswith('!curs'):
         if message.content[6:] == 'all':
@@ -88,12 +83,6 @@ async def on_message(message):
         else:
             curs = Curs()
             await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), title='***Курсы валют на сегодня:***', description=curs))
-
-    elif message.content.startswith('!inst'):
-        url = message.content[6:]
-        answer = getInstagramContent(url)
-        await client.send_message(message.channel, answer)
-        await client.delete_message(message)
 
     elif message.content.startswith('!qr'):
         value = message.content[4:]
@@ -129,7 +118,7 @@ async def on_message(message):
 
 @client.event
 async def on_message_delete(message):
-    print('User{} delete message: {}'.format(
+    print('User {} delete message: {}'.format(
         message.author.name, message.content))
 
 

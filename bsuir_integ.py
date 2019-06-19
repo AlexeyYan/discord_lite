@@ -16,8 +16,8 @@ def Get_Schedules(day):
     else:
         week=r['currentWeekNumber']
         if r[key]!=[]:
-            for lesson in r['key']:
-                if week in lesson['weekNumber'] or r['key']!=None:
+            for lesson in r[key]:
+                if week in lesson['weekNumber'] or r[key]!=None:
                     times=('Время: ' + lesson['lessonTime'])
                     sub=('Предмет: ' + lesson['subject']+' ('+lesson['lessonType']+')')
                     if lesson['employee']!=[]:

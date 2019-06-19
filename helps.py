@@ -7,5 +7,6 @@ Commands_richList={'rasp':'!rasp - присылает расписание на 
                'curs':'!curs - присылает курсы основных валют (USD, EUR, RUB, UAH)\n!curs all - присылает курсы всех валют',
                'inst':'!inst ссылка - присылает ссылку на фото из поста в Instagram',
                'qr':'!qr текст - присылает QR-код и зашифровывает в него указанный текс(ссылку)',
+               'roll':'!roll min max amount - присылает послдовательность из amount случайных чисел меньше max и больше min',
                'help': '!help - присылает список команд\n!help название_команды - присылает подробное описание команды'}
-Commands_List='rasp\nrandvk\nrandpic\ndice\nflip\nweather\ncurs\ninst\nqr\nhelp\n!help название_команды - для расширенной справки по командам '
+Commands_List='rasp\nrandvk\nrandpic\ndice\nflip\nroll\nweather\ncurs\ninst\nqr\nhelp\n!help название_команды - для расширенной справки по командам '

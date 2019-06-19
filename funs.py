@@ -26,15 +26,3 @@ def createQRCode(value):
     image_file=open('qr.jpg', 'wb')
     x.save(image_file, 'JPEG')
     image_file.close()
-
-def getInstagramContent(url):
-     url=urlsplit(url)
-     if url.netloc in ['www.instagram.com', 'instagram.com']:
-        link = 'http://'+url.netloc+url.path+'media/?size=l'
-        r=requests.get(link)
-        if not r.ok:
-         return 'Ссылка не найдена'
-        return link
-     else: 
-         return 'Not Instagram'
-        
