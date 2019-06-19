@@ -33,8 +33,9 @@ class Yandex():
         weather_token=os.environ['YWEATHER']
 
     def GetWeather(self):
-        r=requests.get('https://api.weather.yandex.ru/v1/informers', params={'lat':53.9000000,'lon':27.5666700,'lang':'ru_RU'}, headers={'X-Yandex-API-Key':'7b62cc40-c157-4bd0-b526-b5c23f8e0496'}).json()
+        r=requests.get('https://api.weather.yandex.ru/v1/informers', params={'lat':53.9000000,'lon':27.5666700,'lang':'ru_RU'}, headers={'X-Yandex-API-Key':'7b62cc40-c157-4bd0-b526-b5c23f8e0496'})
         if r.ok:
+            r=r.json()
             now='**Сейчас** {}\nТемпература: {}\nСкорость ветра: {}'.format(self._w_condition[r['fact']['condition']],{r['fact']['temp']},{r['fact']['wind_speed']})
             forecast='**Прогноз на {}:**'.format(r['forecast']['date'])
             for p in r['forecast']['parts']:
