@@ -6,6 +6,7 @@ import os
 import requests
 import json
 import time
+import youtube_dl
 from datetime import datetime
 import helps
 from vk_integ import Vk_Integration
@@ -32,6 +33,7 @@ async def on_ready():
     print(client.user.id)
     print("-------------")
 
+players={}
 
 @client.event
 async def on_message(message):
@@ -111,6 +113,50 @@ async def on_message(message):
 
     elif message.content.startswith('!test'):
         await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description='''```diff\n- Here's some red colored text!\n```'''))
+            
+    #Voice functions
+    elif message.content.startswith('!voice'):
+        channel=message.author.voice.voice_channel
+        await client.join_voice_channel(channel)
+    
+    elif message.content.startswith('!play'):
+        url=message.content[6:]
+        server=message.server
+        voice_client=client.voice_client_in(server)
+        player=await voice_client.create_ytdl_player(url)
+        players[server.id]=player
+        player.start()
+
+    elif message.content.startswith('!leave'):
+        server=message.server
+        player=players[server.id]
+        player.stop()
+        voice_client=client.voice_client_in(server)
+        if voice_client:
+            await voice_client.disconnect()
+    
+    elif message.content.startswith('!pause'):
+        server=message.server
+        player=players[server.id]
+        player.pause()
+
+    elif message.content.startswith('!resume'):
+        server=message.server
+        player=players[server.id]
+        player.resume()
+    
+    elif message.content.startswith('!stop'):
+        server=message.server
+        player=players[server.id]
+        player.stop()
+
+    #Some utils    
+    elif message.content.startswith('!del'):
+        amount=message.content[5:]
+        channel=message.channel
+        messages= await channel.history(limit=amount)
+        await channel.delete_messages(messages)
+
 
     elif message.content.startswith('!stat'):
         await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
