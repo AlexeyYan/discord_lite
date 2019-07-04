@@ -30,16 +30,16 @@ class Yandex():
         'evening': 'Вечер'
     }
     def __init__(self):
-        weather_token=os.environ['YWEATHER']
+        self.weather_token=os.environ['YWEATHER']
 
     def GetWeather(self):
-        r=requests.get('https://api.weather.yandex.ru/v1/informers', params={'lat':53.9000000,'lon':27.5666700,'lang':'ru_RU'}, headers={'X-Yandex-API-Key':'7b62cc40-c157-4bd0-b526-b5c23f8e0496'})
+        r=requests.get('https://api.weather.yandex.ru/v1/informers', params={'lat':53.9000000,'lon':27.5666700,'lang':'ru_RU'}, headers={'X-Yandex-API-Key':self.weather_token})
         if r.ok:
             r=r.json()
-            now='**Сейчас** {}\nТемпература: {}\nСкорость ветра: {}'.format(self._w_condition[r['fact']['condition']],r['fact']['temp'],r['fact']['wind_speed'])
+            now='**Сейчас** {}\nТемпература: {} \u2103 \nСкорость ветра: {} м/c'.format(self._w_condition[r['fact']['condition']],r['fact']['temp'],r['fact']['wind_speed'])
             forecast='**Прогноз на {}:**'.format(r['forecast']['date'])
             for p in r['forecast']['parts']:
-                forecast+='\n\n_**{}**_:\n{}\nТемпература: {}\nСкорость ветра {}'.format(self._w_part_name[p['part_name']], self._w_condition[p['condition']], p['temp_avg'], p['wind_speed'])
+                forecast+='\n\n_**{}**_:\n{}\nТемпература: {} \u2103 \nСкорость ветра {} м/с'.format(self._w_part_name[p['part_name']], self._w_condition[p['condition']], p['temp_avg'], p['wind_speed'])
             ans='Подробный прогноз:<{}>\n-----------------\n{}\n-----------------\n{}'.format(r['info']['url'], now, forecast)
         else:
             ans='Произошла ошибка!'
