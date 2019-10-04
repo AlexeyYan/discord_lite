@@ -12,11 +12,11 @@ class Vk_Integration(object):
         
     def random_pic(self):
         offset = random.randint(0, 1000)
-        r=self.api.wall.get(owner_id='-109125388', count=100, offset=10)['items']
-        r=random.choice(r)
         while True:
-           item=random.choice(r['attachments'])
-           if item['type'] == 'photo': break
+            r = self.api.wall.get(owner_id='-65596623', count=100, offset=offset)
+            r = random.choice(r['items'])
+            item=random.choice(r['attachments'])
+            if item['type'] == 'photo': break
         if item:
             if 'photo_807' in item['photo']:
                 return item['photo']['photo_807']
@@ -26,6 +26,6 @@ class Vk_Integration(object):
     
     def pozor_story(self):
         offset = random.randint(0, 1000)
-        r=self.api.wall.get(owner_id='-71729358', count=100, offset=10)['items']
+        r=self.api.wall.get(owner_id='-71729358', count=100, offset=offset)['items']
         r=random.choice(r)
         return r['text']
