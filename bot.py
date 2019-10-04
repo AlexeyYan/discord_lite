@@ -6,8 +6,11 @@ import os
 import requests
 import json
 import time
-import youtube_dl
 from datetime import datetime
+
+import discord
+import youtube_dl
+
 import helps
 from vk_integ import Vk_Integration
 from imgur_integ import *
@@ -16,13 +19,14 @@ from yandex_integ import Yandex
 from random_integ import Rand
 from bsuir_integ import Get_Schedules
 
+# Initialization
 discord_token = os.environ['DISCORD_TOKEN']
 client = discord.Client()
 vk = Vk_Integration()
-yandex=Yandex()
-Rand=Rand()
+yandex = Yandex()
+Rand = Rand()
 GAMES = ['Skynet', 'программирование', 'кубики',
-         '*не играет*', 'CS:GO', 'рок группе', 'песочнице', 'пьесе']
+         '*не играет*', 'рок группе', 'песочнице', 'пьесе', 'админа']
 
 
 @client.event
@@ -33,7 +37,8 @@ async def on_ready():
     print(client.user.id)
     print("-------------")
 
-players={}
+players = {}
+
 
 @client.event
 async def on_message(message):
@@ -61,21 +66,21 @@ async def on_message(message):
         await client.send_message(message.channel, name+': выпало '+cube1+' и '+cube2)
 
     elif message.content.startswith('!flip'):
-        ans=Rand.Flip()
+        ans = Rand.Flip()
         await client.send_message(message.channel, 'Выпало: '+ans)
 
     elif message.content.startswith('!roll'):
-        amount=1
+        amount = 1
         name = message.author.name
         dip = str(message.content[6:]).split(' ')
         if dip:
-            if int(dip[2])!=0:
-                amount=int(dip[2])
+            if int(dip[2]) != 0:
+                amount = int(dip[2])
         ans = Rand.Roll(int(dip[0]), int(dip[1]), amount)
-        await client.send_message(message.channel,  name+f', ваши числа: {ans}')
+        await client.send_message(message.channel,  f'{name} , ваши числа: {ans}')
 
     elif message.content.startswith('!weather'):
-        forecast=yandex.GetWeather()
+        forecast = yandex.GetWeather()
         await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title='***Погода***', description=forecast))
 
     elif message.content.startswith('!curs'):
@@ -113,50 +118,49 @@ async def on_message(message):
 
     elif message.content.startswith('!test'):
         await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description='''```diff\n- Here's some red colored text!\n```'''))
-            
-    #Voice functions
+
+    # Voice functions
     elif message.content.startswith('!voice'):
-        channel=message.author.voice.voice_channel
+        channel = message.author.voice.voice_channel
         await client.join_voice_channel(channel)
-    
+
     elif message.content.startswith('!play'):
-        url=message.content[6:]
-        server=message.server
-        voice_client=client.voice_client_in(server)
-        player=await voice_client.create_ytdl_player(url)
-        players[server.id]=player
+        url = message.content[6:]
+        server = message.server
+        voice_client = client.voice_client_in(server)
+        player = await voice_client.create_ytdl_player(url)
+        players[server.id] = player
         player.start()
 
     elif message.content.startswith('!leave'):
-        server=message.server
-        player=players[server.id]
+        server = message.server
+        player = players[server.id]
         player.stop()
-        voice_client=client.voice_client_in(server)
+        voice_client = client.voice_client_in(server)
         if voice_client:
             await voice_client.disconnect()
-    
+
     elif message.content.startswith('!pause'):
-        server=message.server
-        player=players[server.id]
+        server = message.server
+        player = players[server.id]
         player.pause()
 
     elif message.content.startswith('!resume'):
-        server=message.server
-        player=players[server.id]
+        server = message.server
+        player = players[server.id]
         player.resume()
-    
+
     elif message.content.startswith('!stop'):
-        server=message.server
-        player=players[server.id]
+        server = message.server
+        player = players[server.id]
         player.stop()
 
-    #Some utils    
+    # Some utils (not works)
     elif message.content.startswith('!del'):
-        amount=message.content[5:]
-        channel=message.channel
-        messages= await channel.history(limit=amount)
+        amount = message.content[5:]
+        channel = message.channel
+        messages = await channel.history(limit=amount)
         await channel.delete_messages(messages)
-
 
     elif message.content.startswith('!stat'):
         await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
