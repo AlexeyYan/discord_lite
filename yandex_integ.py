@@ -1,8 +1,9 @@
 import requests
 import os
 
+
 class Yandex():
-    _w_condition={
+    _w_condition = {
         'clear': 'ясно',
         'partly-cloudy': 'малооблачно',
         'cloudy': 'облачно с проянениями',
@@ -19,28 +20,29 @@ class Yandex():
         'partly-cloudy-and-snow': 'снег',
         'overcast-and-snow': 'снегопад',
         'cloudy-and-light-snow': 'небольшой снег',
-        'overcast-and-light-snow':'небольшой снег',
-        'cloudy-and-snow': 'снег'
-    }
+        'overcast-and-light-snow': 'небольшой снег',
+        'cloudy-and-snow': 'снег'}
 
-    _w_part_name={
+    _w_part_name = {
         'night': 'Ночь',
         'morning': 'Утро',
         'day': 'День',
-        'evening': 'Вечер'
-    }
+        'evening': 'Вечер'}
+
     def __init__(self):
-        self.weather_token=os.environ['YWEATHER']
+        self.weather_token = os.environ['YWEATHER']
 
     def GetWeather(self):
-        r=requests.get('https://api.weather.yandex.ru/v1/informers', params={'lat':53.9000000,'lon':27.5666700,'lang':'ru_RU'}, headers={'X-Yandex-API-Key':self.weather_token})
+        r = requests.get('https://api.weather.yandex.ru/v1/informers',
+                         params={'lat': 53.9000000, 'lon': 27.5666700, 'lang': 'ru_RU'},
+                         headers={'X-Yandex-API-Key': self.weather_token})
         if r.ok:
-            r=r.json()
-            now='**Сейчас** {}\nТемпература: {} \u2103 \nСкорость ветра: {} м/c'.format(self._w_condition[r['fact']['condition']],r['fact']['temp'],r['fact']['wind_speed'])
-            forecast='**Прогноз на {}:**'.format(r['forecast']['date'])
+            r = r.json()
+            now = f'**Сейчас**\n{self._w_condition[r["fact"]["condition"]]}\nТемпература: {r["fact"]["temp"]} \u2103 \nСкорость ветра: {r["fact"]["wind_speed"]} м/c'
+            forecast = f'**Прогноз на {r["forecast"]["date"]}:**'
             for p in r['forecast']['parts']:
-                forecast+='\n\n_**{}**_:\n{}\nТемпература: {} \u2103 \nСкорость ветра {} м/с'.format(self._w_part_name[p['part_name']], self._w_condition[p['condition']], p['temp_avg'], p['wind_speed'])
-            ans='Подробный прогноз:<{}>\n-----------------\n{}\n-----------------\n{}'.format(r['info']['url'], now, forecast)
+                forecast += f'\n\n_**{self._w_part_name[p["part_name"]]}**_:\n{self._w_condition[p["condition"]]}\nТемпература: {p["temp_avg"]} \u2103 \nСкорость ветра {p["wind_speed"]} м/с'
+            ans = f'Подробный прогноз:<{r["info"]["url"]}>\n-----------------\n{now}\n-----------------\n{forecast}'
         else:
-            ans='Произошла ошибка!'
+            ans = 'Произошла ошибка!'
         return ans

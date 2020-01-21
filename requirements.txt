@@ -5,7 +5,6 @@ chardet
 qrcode[pil]
 vk
 wolframalpha
-readline
 imgurpython
 youtube_dl
 pynacl

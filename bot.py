@@ -1,4 +1,3 @@
-import discord
 import random
 import asyncio
 import pickle
@@ -6,175 +5,177 @@ import os
 import requests
 import json
 import time
+import subprocess
 from datetime import datetime
 
 import discord
-import youtube_dl
+from youtube_dl import YoutubeDL
 
 import helps
 from vk_integ import Vk_Integration
-from imgur_integ import *
 from funs import *
 from yandex_integ import Yandex
 from random_integ import Rand
 from bsuir_integ import Get_Schedules
 
-# Initialization
-discord_token = os.environ['DISCORD_TOKEN']
-client = discord.Client()
-vk = Vk_Integration()
-yandex = Yandex()
-Rand = Rand()
-GAMES = ['Skynet', 'программирование', 'кубики',
-         '*не играет*', 'рок группе', 'песочнице', 'пьесе', 'админа']
 
+class ProBot(discord.Client):
 
-@client.event
-async def on_ready():
-    await client.change_presence(game=discord.Game(name=random.choice(GAMES), status=discord.Status.idle))
-    print('Logged on')
-    print(client.user.name)
-    print(client.user.id)
-    print("-------------")
+    async def on_ready(self):
+        self.vk = Vk_Integration()
+        self.yandex = Yandex()
+        self.rand = Rand()
+        self.ydl = YoutubeDL({'forcejson': True, 'simulate': True, 'quiet':True})
+        self.games = ['Skynet', 'программирование', 'кубики',
+                      '*не играет*', 'рок группе', 'песочнице', 'пьесе', 'админа']
+        self.players = {}
+        print(f'Logged on\n{self.user.name}\n{self.user.id}\n{"-"*13}')
+        await self.change_presence(activity=discord.Game(name=random.choice(self.games),
+                                                         status=discord.Status.idle))
 
-players = {}
+    async def on_message(self, message):
+        if message.content.startswith('!ping'):
+            await message.channel.send('pong')
 
-
-@client.event
-async def on_message(message):
-    if message.content.startswith('!ping'):
-        await client.send_message(message.channel, 'pong')
-
-    elif message.content.startswith('!rasp'):
-        if message.content.startswith('!rasp next'):
-            answer = Get_Schedules(1)
-        else:
-            answer = Get_Schedules(0)
-        await client.send_message(message.channel, answer)
-
-    elif message.content.startswith('!randvk'):
-        mem = vk.random_pic()
-        await client.send_message(message.channel, mem)
-
-    elif message.content.startswith('!randpic'):
-        pic = Random_Pic()
-        await client.send_message(message.channel, pic)
-
-    elif message.content.startswith('!dice'):
-        cube1, cube2 = Rand.Dice()
-        name = message.author.name
-        await client.send_message(message.channel, name+': выпало '+cube1+' и '+cube2)
-
-    elif message.content.startswith('!flip'):
-        ans = Rand.Flip()
-        await client.send_message(message.channel, 'Выпало: '+ans)
-
-    elif message.content.startswith('!roll'):
-        amount = 1
-        name = message.author.name
-        dip = str(message.content[6:]).split(' ')
-        if dip:
-            if int(dip[2]) != 0:
-                amount = int(dip[2])
-        ans = Rand.Roll(int(dip[0]), int(dip[1]), amount)
-        await client.send_message(message.channel,  f'{name} , ваши числа: {ans}')
-
-    elif message.content.startswith('!weather'):
-        forecast = yandex.GetWeather()
-        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title='***Погода***', description=forecast))
-
-    elif message.content.startswith('!curs'):
-        if message.content[6:] == 'all':
-            curs = Curs_All()
-            await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), title='***Основные курсы валют на сегодня:***', description=curs))
-        else:
-            curs = Curs()
-            await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), title='***Курсы валют на сегодня:***', description=curs))
-
-    elif message.content.startswith('!qr'):
-        value = message.content[4:]
-        createQRCode(value)
-        qr = open('qr.jpg', 'rb')
-        await client.send_file(message.author, qr)
-        await client.delete_message(message)
-
-    elif message.content.startswith('!help'):
-        if message.content[6:] != '':
-            if message.content[6:] in helps.Commands_richList.keys():
-                answer = discord.Embed(color=discord.Color.blue(
-                ), title='__***'+message.content[6:]+' - help***__', description=helps.Commands_richList[message.content[6:]])
+        elif message.content.startswith('!rasp'):
+            if message.content.startswith('!rasp next'):
+                answer = Get_Schedules(1)
             else:
-                answer = discord.Embed(color=discord.Color.red(
-                ), title='__***Error!***__', description='Команда не найдена')
-        else:
-            answer = discord.Embed(color=discord.Color.blue(
-            ), title='__***Commands List***__', description=helps.Commands_List)
-        await client. send_message(message.author, embed=answer)
-        await client.delete_message(message)
+                answer = Get_Schedules(0)
+            await message.channel.send(answer)
 
-    elif message.content.startswith('!pz'):
-        story = vk.pozor_story()
-        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), title='___***Позор***___', description=story))
+        elif message.content.startswith('!randvk'):
+            mem = self.vk.random_pic()
+            await message.channel.send(mem)
 
-    elif message.content.startswith('!test'):
-        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description='''```diff\n- Here's some red colored text!\n```'''))
+        elif message.content.startswith('!dice'):
+            cube1, cube2 = self.rand.Dice()
+            name = message.author.name
+            await message.channel.send(name+f': выпало {cube1} и {cube2}')
 
-    # Voice functions
-    elif message.content.startswith('!voice'):
-        channel = message.author.voice.voice_channel
-        await client.join_voice_channel(channel)
+        elif message.content.startswith('!flip'):
+            ans = self.rand.Flip()
+            await message.channel.send(f'Выпало: {ans}')
 
-    elif message.content.startswith('!play'):
-        url = message.content[6:]
-        server = message.server
-        voice_client = client.voice_client_in(server)
-        player = await voice_client.create_ytdl_player(url)
-        players[server.id] = player
-        player.start()
+        elif message.content.startswith('!roll'):
+            amount = 1
+            name = message.author.name
+            dip = str(message.content[6:]).split(' ')
+            if dip:
+                if int(dip[2]) != 0:
+                    amount = int(dip[2])
+            ans = self.rand.Roll(int(dip[0]), int(dip[1]), amount)
+            await message.channel.send(f'{name} , ваши числа: {ans}')
 
-    elif message.content.startswith('!leave'):
-        server = message.server
-        player = players[server.id]
-        player.stop()
-        voice_client = client.voice_client_in(server)
-        if voice_client:
-            await voice_client.disconnect()
+        elif message.content.startswith('!weather'):
+            forecast = self.yandex.GetWeather()
+            await message.channel.send(embed=discord.Embed(color=discord.Color.blue(),
+                                                           title='***Погода***',
+                                                           description=forecast))
 
-    elif message.content.startswith('!pause'):
-        server = message.server
-        player = players[server.id]
-        player.pause()
+        elif message.content.startswith('!curs'):
+            if message.content[6:] == 'all':
+                curs = Curs_All()
+                await message.channel.send(embed=discord.Embed(color=discord.Color.green(),
+                                                               title='***Основные курсы валют на сегодня:***',
+                                                               description=curs))
+            else:
+                curs = Curs()
+                await message.channel.send(embed=discord.Embed(color=discord.Color.green(),
+                                                               title='***Курсы валют на сегодня:***',
+                                                               description=curs))
 
-    elif message.content.startswith('!resume'):
-        server = message.server
-        player = players[server.id]
-        player.resume()
+        elif message.content.startswith('!qr'):
+            value = message.content[4:]
+            createQRCode(value)
+            qr = open('qr.jpg', 'rb')
+            await self.send_file(message.author, qr)
+            await self.delete_message(message)
 
-    elif message.content.startswith('!stop'):
-        server = message.server
-        player = players[server.id]
-        player.stop()
+        elif message.content.startswith('!help'):
+            if message.content[6:] != '':
+                if message.content[6:] in helps.Commands_richList.keys():
+                    answer = discord.Embed(color=discord.Color.blue(), 
+                                           title=f'__***{message.content[6:]} - help***__', 
+                                           description=helps.Commands_richList[message.content[6:]])
+                else:
+                    answer = discord.Embed(color=discord.Color.red(), 
+                                           title='__***Error!***__', 
+                                           description='Команда не найдена')
+            else:
+                answer = discord.Embed(color=discord.Color.blue(), 
+                                       title='__***Commands List***__', 
+                                       description=helps.Commands_List)
+            await message.author.send(embed=answer)
+            await self.delete_message(message)
 
-    # Some utils (not works)
-    elif message.content.startswith('!del'):
-        amount = message.content[5:]
-        channel = message.channel
-        messages = await channel.history(limit=amount)
-        await channel.delete_messages(messages)
+        elif message.content.startswith('!pz'):
+            story = self.vk.pozor_story()
+            await message.channel.send(embed=discord.Embed(color=discord.Color.green(),
+                                                                           title='___***Позор***___',
+                                                                           description=story))
 
-    elif message.content.startswith('!stat'):
-        await client.change_presence(game=discord.Game(name=random.choice(GAMES), type=0))
+        elif message.content.startswith('!test'):
+            await message.channel.send(embed=discord.Embed(color=discord.Color.blue(), 
+                                                                           description='''```diff\n- Here's some red colored text!\n```'''))
+        elif message.content.startswith('!setcolor'):
+            rgb_color = message.content[10:].split()
+            guild = message.channel.guild
+            for role in guild.roles:
+                if role.name == message.author.display_name:
+                    color = discord.Colour.from_rgb(int(rgb_color[0]),
+                                                    int(rgb_color[1]),
+                                                    int(rgb_color[2]))
+                    await role.edit(colour=color)
+                    await message.delete()
+
+        # Voice functions
+        elif message.content.startswith('!voice'):
+            if message.author.voice:
+                channel = message.author.voice.channel
+                self.voice_client = await channel.connect()
+
+        elif message.content.startswith('!play'):
+            url = message.content[7:]
+            guild = message.guild
+            info = self.ydl.extract_info(url)
+            for vformat in info['formats']:
+                if vformat['format_id'] == '251':
+                    url = vformat['url']
+            self.voice_client.play(discord.FFmpegPCMAudio(url))
+            self.voice_client.is_playing()
+
+        elif message.content.startswith('!leave'):
+            self.voice_client.stop()
+            if self.voice_client:
+                await self.voice_client.disconnect()
+
+        elif message.content.startswith('!pause'):
+            self.voice_client.pause()
+
+        elif message.content.startswith('!resume'):
+            self.voice_client.resume()
+
+        elif message.content.startswith('!stop'):
+            self.voice_client.stop()
+
+        # Some utils (not works)
+        elif message.content.startswith('!del'):
+            if message.author.id == 377142726962970634:
+                try:
+                    amount = message.content[5:]
+                    deleted = await message.channel.purge(limit=int(amount)+1)
+                except discord.ClientException:
+                    await message.channel.send('Максимальное количество удаляемых сообщений 100')
+
+        elif message.content.startswith('!stat'):
+            await self.change_presence(game=discord.Game(name=random.choice(self.games), type=0))
+
+    async def on_message_delete(self, message):
+        print('User {} delete message: {}'.format(message.author.name, message.content))
 
 
-@client.event
-async def on_message_delete(message):
-    print('User {} delete message: {}'.format(
-        message.author.name, message.content))
-
-
-@client.event
-async def on_member_join(member):
-    await client.send_message(member, 'Приветсвую {} на нашем сервере {}!'.format(member.name, member.guild.name))
-    await client.send_message(os.environ['MAIN'], '{} вступил в нашу команду, поделитесь печеньками)'.format(member.name))
-
-client.run(discord_token)
+if __name__ == "__main__":
+    discord_token = os.environ['DISCORD_TOKEN']
+    bot = ProBot()
+    bot.run(discord_token)
