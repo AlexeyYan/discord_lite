@@ -1,6 +1,6 @@
 discord.py==1.2.5
 aiohttp
-websockets==3.4
+websockets==8.1
 chardet
 qrcode[pil]
 vk
