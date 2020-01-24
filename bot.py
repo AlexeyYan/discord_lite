@@ -112,12 +112,12 @@ class ProBot(discord.Client):
         elif message.content.startswith('!pz'):
             story = self.vk.pozor_story()
             await message.channel.send(embed=discord.Embed(color=discord.Color.green(),
-                                                                           title='___***Позор***___',
-                                                                           description=story))
+                                                           title='___***Позор***___',
+                                                           description=story))
 
         elif message.content.startswith('!test'):
             await message.channel.send(embed=discord.Embed(color=discord.Color.blue(), 
-                                                                           description='''```diff\n- Here's some red colored text!\n```'''))
+                                                           description='''```diff\n- Here's some red colored text!\n```'''))
         elif message.content.startswith('!setcolor'):
             rgb_color = message.content[10:].split()
             guild = message.channel.guild
@@ -136,7 +136,7 @@ class ProBot(discord.Client):
                 self.voice_client = await channel.connect()
 
         elif message.content.startswith('!play'):
-            url = message.content[7:]
+            url = message.content[6:]
             guild = message.guild
             info = self.ydl.extract_info(url)
             for vformat in info['formats']:
@@ -171,6 +171,11 @@ class ProBot(discord.Client):
         elif message.content.startswith('!stat'):
             await self.change_presence(game=discord.Game(name=random.choice(self.games), type=0))
 
+        elif message.content.startswith('!invite'):
+            await message.channel.send('https://discordapp.com/oauth2/authorize?client_id=425699439597060096&permissions=0&redirect_uri=http%3A%2F%2Falexyan9.pythonanywhere.com%2F&scope=bot')
+
+
+    
     async def on_message_delete(self, message):
         print('User {} delete message: {}'.format(message.author.name, message.content))
 
