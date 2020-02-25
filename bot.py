@@ -89,8 +89,8 @@ class ProBot(discord.Client):
             value = message.content[4:]
             createQRCode(value)
             qr = open('qr.jpg', 'rb')
-            await self.send_file(message.author, qr)
-            await self.delete_message(message)
+            await message.author.send(file=discord.File(qr))
+            deleted = await message.channel.purge(limit=1)
 
         elif message.content.startswith('!help'):
             if message.content[6:] != '':
@@ -107,7 +107,7 @@ class ProBot(discord.Client):
                                        title='__***Commands List***__', 
                                        description=helps.Commands_List)
             await message.author.send(embed=answer)
-            await self.delete_message(message)
+            deleted = await message.channel.purge(limit=1)
 
         elif message.content.startswith('!pz'):
             story = self.vk.pozor_story()
