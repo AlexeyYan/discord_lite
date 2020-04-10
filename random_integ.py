@@ -1,44 +1,47 @@
 import random
 import requests
+import os
 
 
 class Rand():
     net_random = True
-    main_url = 'https://www.random.org/integers/'
+    main_url = 'https://api.random.org/json-rpc/2/invoke'
 
     def __init__(self):
+        self.KEY = os.environ['RANDKEY']
         try:
-            r = requests.get(self.main_url, params={})
+            r = requests.post(self.main_url)
         except Exception:
             self.net_random = False
-        if not r.ok:
+        if r.status_code != 415:
             self.net_random = False
 
-    def parse(self, line):
-        return line.decode().split('\n')
-
-    def get_random(self, min_num, max_num, amount):
+    def get_random(self, min_num, max_num, amount, replacement=False):
         ans = []
         if self.net_random:
-            r = requests.get(self.main_url, params={'num': amount,
-                                                    'min': min_num,
-                                                    'max': max_num,
-                                                    'col': 1,
-                                                    'base': 10,
-                                                    'format': 'plain',
-                                                    'rnd': 'new'})
-            ans = self.parse(r.content)
+            payload = {
+                'jsonrpc': '2.0',
+                'method': "generateIntegers",
+                'params': {
+                    'apiKey': self.KEY,
+                    'n': amount,
+                    'min': min_num,
+                    'max': max_num,
+                    'replacement': replacement},
+                'id': random.randint(1, 1000)}
+            r = requests.post(self.main_url, json=payload).json()
+            ans = r['result']['random']['data']
         else:
             while amount >= 0:
                 ans.append(random.randint(min_num, max_num))
         return ans
 
     def Dice(self):
-        ans = self.get_random(1, 6, 2)
+        ans = self.get_random(1, 6, 2, replacement=True)
         return ans[0], ans[1]
 
     def Flip(self):
-        if random.randint(0, 1000) <= 453:
+        if random.randint(0, 1000) <= random.randint(0, 1000):
             ans = 'Орёл'
         else:
             ans = 'Решка'
