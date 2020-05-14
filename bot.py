@@ -26,6 +26,7 @@ class ProBot(discord.Client):
         self.yandex = Yandex()
         self.rand = Rand()
         self.ydl = YoutubeDL({'forcejson': True, 'simulate': True, 'quiet':True})
+        self.voice_client = None
         self.games = ['Skynet', 'программирование', 'кубики',
                       '*не играет*', 'рок группе', 'песочнице', 'пьесе', 'админа']
         self.players = {}
