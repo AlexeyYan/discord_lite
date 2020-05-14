@@ -138,10 +138,13 @@ class ProBot(discord.Client):
         elif message.content.startswith('!play'):
             url = message.content[6:]
             guild = message.guild
+            channel = message.author.voice.channel
             info = self.ydl.extract_info(url)
             for vformat in info['formats']:
                 if vformat['format_id'] == '251':
                     url = vformat['url']
+            if not self.voice_client:
+                self.voice_client = await channel.connect()
             self.voice_client.play(discord.FFmpegPCMAudio(url))
             self.voice_client.is_playing()
 
