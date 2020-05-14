@@ -15,7 +15,8 @@ class Vk_Integration(object):
             r = self.api.wall.get(owner_id='-65596623', count=100, offset=offset)
             r = random.choice(r['items'])
             item = random.choice(r['attachments'])
-            if item['type'] == 'photo': break
+            if item['type'] == 'photo':
+                break
         if item:
             if 'photo_807' in item['photo']:
                 return item['photo']['photo_807']

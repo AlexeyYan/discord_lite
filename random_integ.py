@@ -13,8 +13,10 @@ class Rand():
             r = requests.post(self.main_url)
         except Exception:
             self.net_random = False
+            print("Use local random")
         if r.status_code != 415:
             self.net_random = False
+            print("Use local random")
 
     def get_random(self, min_num, max_num, amount, replacement=False):
         ans = []

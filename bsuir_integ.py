@@ -18,10 +18,10 @@ def Get_Schedules(day):
         week = r['currentWeekNumber']
         if r[key] != []:
             for lesson in r[key]:
-                if week in lesson['weekNumber'] or r[key] != None:
+                if week in lesson['weekNumber'] or r[key] is not None:
                     times = f'Время: {lesson["lessonTime"]}'
                     sub = f'Предмет: {lesson["subject"]} ({lesson["lessonType"]})'
-                    if lesson['employee']!=[]:
+                    if lesson['employee'] != []:
                         employeer = f'Препод:  {lesson["employee"][0]["fio"]}'
                     else:
                         employeer = ''
