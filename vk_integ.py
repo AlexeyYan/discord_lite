@@ -7,7 +7,7 @@ class Vk_Integration(object):
     def __init__(self):
         self.vk_token = os.environ['VK_TOKEN']
         self.session = vk.Session(self.vk_token)
-        self.api = vk.API(self.session, v='5.7')
+        self.api = vk.API(self.session, v='5.21')
 
     def random_pic(self):
         offset = random.randint(0, 1000)
