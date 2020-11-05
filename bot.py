@@ -25,7 +25,7 @@ class ProBot(discord.Client):
         self.vk = Vk_Integration()
         self.yandex = Yandex()
         self.rand = Rand()
-        self.ydl = YoutubeDL({'forcejson': True, 'simulate': True, 'quiet':True})
+        self.ydl = YoutubeDL({'forcejson': True, 'simulate': True, 'quiet': True})
         self.voice_client = None
         self.games = ['Skynet', 'программирование', 'кубики',
                       '*не играет*', 'рок группе', 'песочнице', 'пьесе', 'админа']
@@ -135,6 +135,7 @@ class ProBot(discord.Client):
             if message.author.voice:
                 channel = message.author.voice.channel
                 self.voice_client = await channel.connect()
+                print(f'Voice connect: {self.voice_client.is_connected()}')
 
         elif message.content.startswith('!play'):
             url = message.content[6:]
@@ -178,8 +179,6 @@ class ProBot(discord.Client):
         elif message.content.startswith('!invite'):
             await message.channel.send('https://discordapp.com/oauth2/authorize?client_id=425699439597060096&permissions=0&redirect_uri=http%3A%2F%2Falexyan9.pythonanywhere.com%2F&scope=bot')
 
-
-    
     async def on_message_delete(self, message):
         print('User {} delete message: {}'.format(message.author.name, message.content))
 
