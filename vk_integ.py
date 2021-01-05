@@ -26,7 +26,16 @@ class Vk_Integration(object):
                 return 'Мемы не обнаружены'
 
     def pozor_story(self):
-        offset = random.randint(0, 1000)
-        r = self.api.wall.get(owner_id='-71729358', count=100, offset=offset)['items']
-        r = random.choice(r)
-        return r['text']
+        while True:
+            offset = random.randint(0, 1000)
+            r = self.api.wall.get(owner_id='-71729358', count=100, offset=offset)['items']
+            r = random.choice(r)
+            print(r)
+            if r['marked_as_ads'] != 1:
+                if r['text']:
+                    return r['text']
+                elif r['attachments']:
+                    if r['attachments'][0]['photo']['photo_604']:
+                        return r['attachments'][0]['photo']['photo_604']
+            else:
+                continue

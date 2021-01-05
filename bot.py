@@ -112,9 +112,7 @@ class ProBot(discord.Client):
 
         elif message.content.startswith('!pz'):
             story = self.vk.pozor_story()
-            await message.channel.send(embed=discord.Embed(color=discord.Color.green(),
-                                                           title='___***Позор***___',
-                                                           description=story))
+            await message.channel.send(story)
 
         elif message.content.startswith('!test'):
             await message.channel.send(embed=discord.Embed(color=discord.Color.blue(), 
@@ -180,6 +178,10 @@ class ProBot(discord.Client):
             await message.channel.send('https://discordapp.com/oauth2/authorize?client_id=425699439597060096&permissions=0&redirect_uri=http%3A%2F%2Falexyan9.pythonanywhere.com%2F&scope=bot')
 
     async def on_message_delete(self, message):
+        print(message)
+        if message.attachments:
+            for i in message.attachments:
+                print(i.proxy_url)
         print('User {} delete message: {}'.format(message.author.name, message.content))
 
 
